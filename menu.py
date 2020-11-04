@@ -34,6 +34,7 @@ Press 8: Install a software
 Press 9: Launch a Docker container
 Press 10: Configure Hadoop Cluster 
 Press 11: List AWS Instance
+Press 12: Create and run a new EC2 Instance
 Press 0: Exit
 	""")
 
@@ -81,6 +82,14 @@ Press 0: Exit
 			print("Entered into the Docker Container")
 		elif int(ch) == 11:
 			os.system("aws ec2 describe-instances")
+		elif int(ch) == 12:
+			image_id = input("Enter the Image ID: ")
+			instance_type = input("Enter Instance Type: ")
+			count = int(input("Enter the Number of Instances you want to launch: "))
+			subnet_id = input("Enter the Subnet ID: ")
+			sg_group_id = input("Enter the Security Group ID: ")
+			key_name = input("Enter the Key Name: ")
+			os.system(f"aws ec2 run-instances --image-id {image_id} --instance-type {instance_type} --count {count} --subnet-id {subnet_id} --security-group-ids {sg_group_id} --key-name {key_name}")
 		elif int(ch) == 0:
 			exit()
 		else: 	
