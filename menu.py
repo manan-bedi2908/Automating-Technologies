@@ -35,6 +35,7 @@ Press 9: Launch a Docker container
 Press 10: Configure Hadoop Cluster 
 Press 11: List AWS Instance
 Press 12: Create and run a new EC2 Instance
+Press 13: Attach EBS Volume to a EC2 Instance
 Press 0: Exit
 	""")
 
@@ -90,6 +91,14 @@ Press 0: Exit
 			sg_group_id = input("Enter the Security Group ID: ")
 			key_name = input("Enter the Key Name: ")
 			os.system(f"aws ec2 run-instances --image-id {image_id} --instance-type {instance_type} --count {count} --subnet-id {subnet_id} --security-group-ids {sg_group_id} --key-name {key_name}")
+		elif int(ch) == 13:
+			zone = input("Enter the Availability Zone (Should be same with the instance you want to attach): ")
+			size = int(input("Enter the size of the EBS Volume (In GB): "))
+			os.system(f"aws ec2  create-volume --availability-zone {zone}   --size {size}")
+			instance_id = input("Enter the Instance ID you wish to attach EBS Volume with: ")
+			volume_id = input("Enter the Volume ID: ")
+			os.system(f"aws ec2 attach-volume  --device   /dev/sdg   --instance-id  {instance_id} --volume-id {volume_id}")
+			print(f"Attached EBS Volume with the Instance of {size} GB")
 		elif int(ch) == 0:
 			exit()
 		else: 	
