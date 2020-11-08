@@ -28,6 +28,11 @@ def web_server_config():
 	print("Web Server Started")
 	os.system("cd /var/www/html")
 
+def create_file():
+	print("Enter The File Name: ",end=' ')
+	file_name = input()
+	os.system("touch {}".format(file_name))
+
 while True:
 	print("""
 Press 1: Find Date
@@ -68,9 +73,7 @@ Press 0: Exit
 			password = input()
 			os.system("passwd {}".format(userName))
 		elif int(ch) == 5:
-			print("Enter The File Name: ",end=' ')
-			file_name = input()
-			os.system("mkdir {}".format(file_name))
+			create_file()
 		elif int(ch) == 6:
 			os.system("fdisk -l")
 		elif int(ch) == 7:
