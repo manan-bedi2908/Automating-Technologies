@@ -112,25 +112,63 @@ Press 0: Exit
 		elif int(ch) == 2:
 			os.system("ssh {0} cal".format(remoteIP))
 		elif int(ch) == 3:				
-			os.system("yum install httpd")
+			os.system("ssh {0} yum install httpd".format(remoteIP))
+			print("Apache Web Server Installed")
+			os.system("ssh {0} systemctl start httpd".format(remoteIP))
+			print("Web Server Started")
+			os.system("ssh {0} cd /var/www/html".format(remoteIP))
 		elif int(ch) == 4:
 			print("Enter the UserName: ",end=' ')
 			userName = input()
-			os.system("ssh {0} useradd {1}".format(remoteIP,userName))
+			os.system("ssh {0} useradd {1}".format(remoteIP, userName))
+			print("Enter the password", end=' ')
+			password = input()
+			os.system("ssh {0} passwd {1}".format(remoteIP, userName))
 		elif int(ch) == 5:
 			print("Enter The File Name: ",end=' ')
 			file_name = input()
-			os.system("mkdir {}".format(file_name))
+			os.system(f"ssh {remoteIP} mkdir {file_name}")
 		elif int(ch) == 6:
-			os.system("date")
+			os.system(f"ssh {remoteIP} fdisk -l")
 		elif int(ch) == 7:
 			print("Enter the Software Name: ",end=' ')
 			software_name = input() 
-			os.system("rpm -q {}".format(software_name))
+			os.system("ssh {0} rpm -q {1}".format(remoteIP, software_name))
 		elif int(ch) == 8:
+			print("Enter the Software Name: ", end=' ')
+			software_name = input()
+			os.system("ssh {0} yum install {1}".format(remoteIP, software_name))
+		elif int(ch) == 9:
+			print("Enter the Operating System Name (Operating System:version): ", end='')
+			os_name = input()
+			os.system("ssh {0} docker pull {1}".format(remoteIP, os_name))
+			print("Pulled the container image successfully from Docker Container")			
+			os.system("ssh {0} docker run -it {1}".format(remoteIP, os_name))
+			print("Entered into the Docker Container")
+		elif int(ch) == 11:
+			os.system(f"ssh {remoteIP} aws ec2 describe-instances")
+		elif int(ch) == 12:
+			image_id = input("Enter the Image ID: ")
+			instance_type = input("Enter Instance Type: ")
+			count = int(input("Enter the Number of Instances you want to launch: "))
+			subnet_id = input("Enter the Subnet ID: ")
+			sg_group_id = input("Enter the Security Group ID: ")
+			key_name = input("Enter the Key Name: ")
+			os.system(f"ssh {remoteIP} aws ec2 run-instances --image-id {image_id} --instance-type {instance_type} --count {count} --subnet-id {subnet_id} --security-group-ids {sg_group_id} --key-name {key_name}")
+		elif int(ch) == 13:
+			zone = input("Enter the Availability Zone (Should be same with the instance you want to attach): ")
+			size = int(input("Enter the size of the EBS Volume (In GB): "))
+			os.system(f"aws ec2  create-volume --availability-zone {zone}   --size {size}")
+			instance_id = input("Enter the Instance ID you wish to attach EBS Volume with: ")
+			volume_id = input("Enter the Volume ID: ")
+			os.system(f"ssh {remoteIP} aws ec2 attach-volume  --device   /dev/sdg   --instance-id  {instance_id} --volume-id {volume_id}")
+			print(f"Attached EBS Volume with the Instance of {size} GB")
+		elif int(ch) == 0:
 			exit()
 		else: 	
 			print("Invalid Choice!!")
+		input("Enter to continue...")	
+		os.system("clear")
 
 	else:
 		print("Location not supported!!")
