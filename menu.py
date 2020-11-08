@@ -36,6 +36,7 @@ Press 10: Configure Hadoop Cluster
 Press 11: List AWS Instance
 Press 12: Create and run a new EC2 Instance
 Press 13: Attach EBS Volume to a EC2 Instance
+Press 14: Create a Partition in a Virtual Hard Disk
 Press 0: Exit
 	""")
 
@@ -99,6 +100,29 @@ Press 0: Exit
 			volume_id = input("Enter the Volume ID: ")
 			os.system(f"aws ec2 attach-volume  --device   /dev/sdg   --instance-id  {instance_id} --volume-id {volume_id}")
 			print(f"Attached EBS Volume with the Instance of {size} GB")
+		elif int(ch) == 14: 
+			print("Create a Partition in a Virtual Hard Disk")
+			os.system("tput setaf 9")
+			print("Make sure you have attached a new hard disk to the OS already")
+			os.system("tput setaf 11")
+			print("Displaying all the Hard Disks Available")
+			os.system("fdisk -l")
+			os.system("tput setaf 14")
+			print("Now, create a partition in the Desired Hard Disk")
+			hard_disk = input("Enter the Hard Disk: ")
+			os.system("fdisk {}".format(hard_disk))
+			os.system("udevadm settle")
+			os.system("tput setaf 7")
+			print("Driver Installed")
+			partition = hard_disk + "1"
+			os.system(f"mkfs.ext4 {partition}")
+			os.system("tput setaf 13")
+			print("Successfully formatted the Partition!!")
+			folder = input("Enter the directory location to be mounted with the new partition: ")
+			os.system(f"mount {partition} {folder}")
+			os.system("tput setaf 7")
+			os.system("Displaying the information of the disks !!")
+			os.system("df -h")
 		elif int(ch) == 0:
 			exit()
 		else: 	
