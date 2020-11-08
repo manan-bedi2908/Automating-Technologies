@@ -145,8 +145,7 @@ Press 0: Exit
 			print("Create a CloudFront Distribution using S3 as Origin")
 			bucket_name = input("Enter the name of the Bucket: ")
 			file_name = input("Enter the file name in the Bucket: ")
-			os.system(f"aws cloudfront create-distribution --origin-domain-name {bucket_name}.s3.amazonaws.com --default-root-object {file_name}
-")
+			os.system(f"aws cloudfront create-distribution --origin-domain-name {bucket_name}.s3.amazonaws.com --default-root-object {file_name}")
 		elif int(ch) == 0:
 			exit()
 		else: 	
