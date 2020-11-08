@@ -21,6 +21,13 @@ print(location)
 if location == "remote":
 	remoteIP = input("Enter the IP Address: ")
 
+def web_server_config():
+	os.system("yum install httpd")			
+	print("Apache Web Server Installed")
+	os.system("systemctl start httpd")
+	print("Web Server Started")
+	os.system("cd /var/www/html")
+
 while True:
 	print("""
 Press 1: Find Date
@@ -52,11 +59,7 @@ Press 0: Exit
 		elif int(ch) == 2:
 			os.system("cal")
 		elif int(ch) == 3:
-			os.system("yum install httpd")
-			print("Apache Web Server Installed")
-			os.system("systemctl start httpd")
-			print("Web Server Started")
-			os.system("cd /var/www/html")
+			web_server_config()
 		elif int(ch) == 4:
 			print("Enter the UserName: ",end=' ')
 			userName = input()
