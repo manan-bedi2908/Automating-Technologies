@@ -180,7 +180,7 @@ def remove_file_dir():
 
 while True:
 	
-	print("1. Linux/User/File Management)
+	print("1. Linux/User/File Management")
 	print("2. Docker Services")
 	print("3. AWS Cloud")
 	print("4. Hadoop Services")
@@ -194,6 +194,8 @@ while True:
 	if location == "local":
 		if int(ch) == 1:	
 			os.system("clear")
+			os.system("tput bold")
+			os.system("tput setaf 2")
 			print("1. Display Date")
 			print("2. Display Calender")
 			print("3. Create File")
@@ -206,7 +208,7 @@ while True:
 			print("10. Copy or move a File")
 			print("0. Exit")
 			
-			ch_linux = input()
+			ch_linux = input("Enter your Choice: ")
 			if int(ch_linux) == 1:
 				os.system("date")
 			elif int(ch_linux) == 2:
