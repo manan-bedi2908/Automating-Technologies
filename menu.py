@@ -21,6 +21,31 @@ print(location)
 if location == "remote":
 	remoteIP = input("Enter the IP Address: ")
 
+def change_directory():
+	directory_path = input("Enter the path of the directory you want to move on: ")
+	try:
+		os.system(f"cd {directory_path}")	
+	except Exception as e:
+		print("You have entered Invalid Directory Path!! Try again!!")
+		print(e)
+	else:
+		os.system("tput setaf 8")
+		print(f"Successfully changed the directory. Now, you are in {directory_path}")
+
+def create_directory():
+	current = input("Do you want to create a directory here only (Y/N): ")
+	if current == "N":
+		change_directory()
+	name_dir = input("Enter the Name of the Directory: ")
+	try:
+		os.system(f"mkdir {name_dir}")
+	except Exception as e:
+		print("Error Occurred!! Not able to create a directory")
+		print(e)
+	else:
+		os.system("tput setaf 8")
+		print(f"Successfully created a Directory named {name_dir}")
+		
 def web_server_config():
 	os.system("yum install httpd")			
 	print("Apache Web Server Installed")
@@ -124,42 +149,93 @@ def create_cloudfront():
 	file_name = input("Enter the file name in the Bucket: ")
 	os.system(f"aws cloudfront create-distribution --origin-domain-name {bucket_name}.s3.amazonaws.com --default-root-object {file_name}")
 
-while True:
-	print("""
-Press 1: Find Date
-Press 2: Check Calender
-Press 3: Configure Web Server
-Press 4: Create a new User
-Press 5: Create File
-Press 6: List the hard disks present
-Press 7: Check if a Software is present
-Press 8: Install a software
-Press 9: Launch a Docker container
-Press 10: Configure Hadoop Cluster 
-Press 11: List AWS Instance
-Press 12: Create and run a new EC2 Instance
-Press 13: Attach EBS Volume to a EC2 Instance
-Press 14: Create, format and mount a Partition in a Virtual Hard Disk
-Press 15: Create a S3 Bucket
-Press 16: Upload a file to a S3 Bucket
-Press 17: Create a CloudFront Distribution
-Press 0: Exit
-	""")
+def remove_file_dir():
+	file_or_dir = input("Do you want to remove a file or a directory (File/Dir): ")
+	print("List of all the files/directories in the current location: \n")
+	os.system("ls")
+	if file_or_dir == "File":
+		current = input("Is the file in current location only (Y/N): ")
+		if current == "N":
+			change_directory()
+		file_name = input("Enter the File Name to be removed: ")
+		try:
+			os.system(f"rm {file_name}")
+		except Exception as e:
+			print("Unable to remove the file!! Try Again!!")
+		else:
+			print("Successfully removed the file!!")
+	if file_or_dir == "Dir":
+		current = input("Is the Directory in current location only (Y/N): ")
+		if current == "N":
+			change_directory()
+		dir_name = input("Enter the Directory Name to be removed: ")
+		try:
+			os.system(f"rm -r {dir_name} --force")
+		except Exception as e:
+			print("Unable to remove the file!! Try Again!!")
+		else:
+			print("Successfully removed the file!!")
+	
+		
 
+while True:
+	
+	print("1. Linux/User/File Management)
+	print("2. Docker Services")
+	print("3. AWS Cloud")
+	print("4. Hadoop Services")
+	print("5. Machine Learning")
+	print("0. Exit")
+	
 	print("Enter Your Choice: ",end=' ')
 	ch = input()
 
+
 	if location == "local":
-		if int(ch) == 1:
-			os.system("date")
-		elif int(ch) == 2:
-			os.system("cal")
+		if int(ch) == 1:	
+			os.system("clear")
+			print("1. Display Date")
+			print("2. Display Calender")
+			print("3. Create File")
+			print("4. Create New User")
+			print("5. Know the Current Location")
+			print("6. List all the files in the current directory")
+			print("7. Change the Directory")
+			print("8. Create a new Directory")
+			print("9. Remove a File or a Directory")
+			print("10. Copy or move a File")
+			print("0. Exit")
+			
+			ch_linux = input()
+			if int(ch_linux) == 1:
+				os.system("date")
+			elif int(ch_linux) == 2:
+				os.system("cal")
+			elif int(ch_linux) == 3:
+				create_file()
+			elif int(ch_linux) == 4:
+				create_new_user()
+			elif int(ch_linux) == 5:
+				os.system("pwd")
+			elif int(ch_linux) == 6:
+				os.system("ls")
+			elif int(ch_linux) == 7:
+				change_directory()
+			elif int(ch_linux) == 8:
+				create_directory()
+			elif int(ch_linux) == 9:
+				remove_file_dir()
+			elif int(ch_linux) == 10:
+				copy_move_file()
+			elif int(ch) == 0:
+				exit()
+			else: 	
+				print("Invalid Choice!!")
+			input("Enter to continue...")	
+			os.system("clear")
+			
 		elif int(ch) == 3:
 			web_server_config()
-		elif int(ch) == 4:
-			create_new_user()
-		elif int(ch) == 5:
-			create_file()
 		elif int(ch) == 6:
 			os.system("fdisk -l")
 		elif int(ch) == 7:
