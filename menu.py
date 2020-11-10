@@ -176,12 +176,24 @@ def remove_file_dir():
 		else:
 			print("Successfully removed the file!!")
 	
+def copy_move_file():
+	ch = input("Do you want to copy or move a file (copy/move): ")
+	source = input("Enter the source location: ")
+	dest = input(f"Enter the destination where you want to {ch}: ")
+	if ch == "copy":
+		os.system(f"cp {source} {dest}")	
+	elif ch == "move":
+		os.system(f"mv {source} {dest}")
+
+def retrieve_info():
+	url = input("Enter the URL:")	
+	os.system(f"curl {url}")
 		
 
 while True:
 	
 	print("1. Linux/User/File Management")
-	print("2. Docker Services")
+	print("2. Networking Services")
 	print("3. AWS Cloud")
 	print("4. Hadoop Services")
 	print("5. Machine Learning")
@@ -206,6 +218,8 @@ while True:
 			print("8. Create a new Directory")
 			print("9. Remove a File or a Directory")
 			print("10. Copy or move a File")
+			print("11. Retrieve Information of File from a URL")
+			print("12. Check the History")
 			print("0. Exit")
 			
 			ch_linux = input("Enter your Choice: ")
@@ -229,12 +243,68 @@ while True:
 				remove_file_dir()
 			elif int(ch_linux) == 10:
 				copy_move_file()
+			elif int(ch_linux) == 11:
+				retrieve_info()
+			elif int(ch_linux) == 12:
+				os.system("history")
 			elif int(ch) == 0:
 				exit()
 			else: 	
 				print("Invalid Choice!!")
 			input("Enter to continue...")	
 			os.system("clear")
+
+		elif int(ch) == 2:
+			os.system("clear")
+			os.system("tput bold")
+			os.system("tput setaf 2")
+			print("1. Display Current Network Configuration")
+			print("2. Troubleshoot Network")
+			print("3. Create File")
+			print("4. Create New User")
+			print("5. Know the Current Location")
+			print("6. List all the files in the current directory")
+			print("7. Change the Directory")
+			print("8. Create a new Directory")
+			print("9. Remove a File or a Directory")
+			print("10. Copy or move a File")
+			print("11. Retrieve Information of File from a URL")
+			print("12. Check the History")
+			print("0. Exit")
+			
+			ch_net = input("Enter your Choice: ")
+			if int(ch_net) == 1:
+				os.system("ifconfig")
+			elif int(ch_net) == 2:
+				destination = input("Enter the Destination: ")
+				os.system(f"traceroute {destination}")
+			elif int(ch_linux) == 3:
+				create_file()
+			elif int(ch_linux) == 4:
+				create_new_user()
+			elif int(ch_linux) == 5:
+				os.system("pwd")
+			elif int(ch_linux) == 6:
+				os.system("ls")
+			elif int(ch_linux) == 7:
+				change_directory()
+			elif int(ch_linux) == 8:
+				create_directory()
+			elif int(ch_linux) == 9:
+				remove_file_dir()
+			elif int(ch_linux) == 10:
+				copy_move_file()
+			elif int(ch_linux) == 11:
+				retrieve_info()
+			elif int(ch_linux) == 12:
+				os.system("history")
+			elif int(ch) == 0:
+				exit()
+			else: 	
+				print("Invalid Choice!!")
+			input("Enter to continue...")	
+			os.system("clear")
+			
 			
 		elif int(ch) == 3:
 			web_server_config()
